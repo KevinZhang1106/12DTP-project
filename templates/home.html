@@ -22,9 +22,11 @@
     <input type="TEXT" id="searchbar" placeholder="Search champions">
 
     {% for champion in searchbar %}
+    <a href="/champions/{{champion[0]}}/{{champion[1]}}">
     <button class="champion-button" data-name="{{champion[2].lower()}}">
         {{champion[2]}}
     </button>
+    </a>
     {% endfor %}
 
     <script>

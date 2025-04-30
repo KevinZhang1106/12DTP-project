@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>champions</title>
+
+    <style>
+        .champion-button{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Champions stats page</h1>
+    <a href="/">
+        <button>
+            Home
+        </button>
+    </a>
+
+    <input type="text" id="searchbar" placeholder="Search Champions">
+
+    {% for champion in searchbar %}
+    <a href="/champions/{{champion[0]}}/{{champion[1]}}">
+    <button class="champion-button" data-name="{{champion[2]}}.lower()">
+        {{champion[2]}}
+    </button>
+    </a>
+    {% endfor %}
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchbar = document.getElementById("searchbar")
+            const buttons = document.querySelectorAll(".champion-button")
+
+            searchbar.addEventListener("input", function() {
+                searchText = this.value.toLowerCase()
+
+                buttons.forEach(button => {
+                    const champion = button.getAttribute("data-name")
+                    if (searchText.length > 0 && champion.includes(searchText)){
+                        button.style.display = "inline-block";
+                    }
+                    else {
+                        button.style.display = "none";
+                    }
+                })
+            })
+
+        })
+
+    </script>
+
+</body>
+</html>

@@ -36,7 +36,7 @@
             const searchText = this.value.toLowerCase()
             buttons.forEach(button => {
                 const champion = button.getAttribute("data-name")
-                if (champion.includes(searchText)) {
+                if (searchText.length > 0 && champion.includes(searchText)) {
                     button.style.display = "inline-block";
                 }
                 else {

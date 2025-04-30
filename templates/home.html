@@ -4,9 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
+    <style>
+
+        .champion-button {
+            display: none;
+        }
+
+    </style>
+
 </head>
 <body>
     <h1>HOME PAGE</h1>
     <p>{{searchbar}}</p>
+    
+
+    <input type="TEXT" id="searchbar" placeholder="Search champions">
+
+    {% for champion in searchbar %}
+    <button class="champion-button" data-name="{{champion[2].lower()}}">
+        {{champion[2]}}
+    </button>
+    {% endfor %}
+
+    <script>
+
+        const searchbar = document.getElementById("searchbar")
+        const buttons = document.querySelectorAll(".champion-button")
+
+        searchbar.addEventListener("input", function () {
+            const searchText = this.value.toLowerCase()
+            buttons.forEach(button => {
+                const champion = button.getAttribute("data-name")
+                if (champion.includes(searchText)) {
+                    button.style.display = "inline-block";
+                }
+                else {
+                    button.style.display = "none";
+                }
+            })
+        })
+
+    </script>
+
+
 </body>
 </html>

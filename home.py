@@ -38,9 +38,22 @@ def championstatspage(champ_id, lane_id):
         "WHERE cs.pickrate=max_stats.max_pickrate"
     )
     searchbar = cur.fetchall()
-    conn.close()
 
-    return render_template("champions.html", championstats=championstats, searchbar=searchbar)
+    cur.execute(
+        "SELECT cl.lane_id FROM ChampionsLanes cl "
+        "WHERE cl.champ_id=?", (champ_id, )
+    )
+    available_lanes = []
+    for lanes in cur.fetchall():
+        available_lanes.append(lanes[0])
+    
+    cur.execute(
+        "SELECT lane_id, lane_name FROM Lanes"
+    )
+    all_lanes = cur.fetchall()
+
+    conn.close()
+    return render_template("champions.html", championstats=championstats, searchbar=searchbar, available_lanes=available_lanes, all_lanes=all_lanes, current_lane=lane_id, champ_id=champ_id)
 
 
 if __name__ == "__main__":

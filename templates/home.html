@@ -15,9 +15,7 @@
 
 </head>
 <body>
-    <h1>HOME PAGE</h1>
-    <p>{{searchbar}}</p>
-    
+    <h1>HOME PAGE</h1>    
 
     <input type="TEXT" id="searchbar" placeholder="Search champions">
 
@@ -36,6 +34,7 @@
 
         searchbar.addEventListener("input", function () {
             const searchText = this.value.toLowerCase()
+
             buttons.forEach(button => {
                 const champion = button.getAttribute("data-name")
                 if (searchText.length > 0 && champion.includes(searchText)) {

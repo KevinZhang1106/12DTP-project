@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +72,7 @@
             margin-top: 30px;
             display: flex;
             gap: 20px;
-            
+
         }
 
         .lane-link {
@@ -99,10 +100,10 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
-        
     </style>
 
 </head>
+
 <body>
     <h1>Champions Stats Page</h1>
 
@@ -123,17 +124,16 @@
     <div class="lane-container">
         {% for lane in all_lanes %}
         <a href="/champions/{{champ_id}}/{{lane[0]}}" class="lane-link">
-            <button
-                class="lane-button
+            <button class="lane-button
                        {% if lane[0] == current_lane %} current-lane {% endif %}
-                       {% if lane[0] not in available_lanes %} unavailable {% endif %}"
-                {% if lane[0] == current_lane or lane[0] not in available_lanes %} disabled {% endif %}>
+                       {% if lane[0] not in available_lanes %} unavailable {% endif %}" {% if lane[0]==current_lane or
+                lane[0] not in available_lanes %} disabled {% endif %}>
                 {{ lane[1] }}
             </button>
         </a>
         {% endfor %}
     </div>
-    
+
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -156,4 +156,5 @@
     </script>
 
 </body>
+
 </html>

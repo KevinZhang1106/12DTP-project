@@ -100,6 +100,44 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        .home-button {
+            display: inline-block;
+            background-color: #1e2a38;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 100px;
+            box-sizing: border-box;
+        }
+
+        .ranking-button {
+            display: inline-block;
+            background-color: #1e2a38;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 100px;
+            box-sizing: border-box;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 
 </head>
@@ -107,9 +145,10 @@
 <body>
     <h1>Champions Stats Page</h1>
 
-    <a href="/">
-        <button class="lane-button">Home</button>
-    </a>
+    <div class="nav-buttons">
+        <a href="/" class="home-button">Home</a>
+        <a href="/championranking/0" class="ranking-button">Ranking</a>
+    </div>
 
     <input type="text" id="searchbar" placeholder="Search Champions">
 

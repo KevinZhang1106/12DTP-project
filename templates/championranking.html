@@ -23,35 +23,31 @@
             align-items: center;
         }
 
-        .home-link {
-            align-self: flex-start;
-            margin-bottom: 20px;
-        }
-
         .home-button {
+            display: inline-block;
             background-color: #1e2a38;
-            color: white;
-            padding: 10px 20px;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
             font-size: 14px;
-            border: none;
-            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-        }
-
-        .home-button:hover {
-            background-color: #2d3b4e;
+            width: 100%;
+            max-width: 100px;
+            box-sizing: border-box;
         }
 
         #searchbar {
             width: 100%;
             max-width: 400px;
-            padding: 12px;
+            padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
         }
 
         .button-container {
@@ -163,8 +159,11 @@
 <body>
 
     <div class="container">
-        <a href="/" class="home-link">
-            <button class="home-button">Home</button>
+
+        <h1>Champion Ranking Page</h1>
+
+        <a href="/" class="home-button">
+            Home
         </a>
 
         <input type="text" id="searchbar" placeholder="Search Champions">

@@ -30,6 +30,7 @@
             border: none;
             border-radius: 8px;
             margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .button-container {
@@ -69,6 +70,22 @@
             text-decoration: none;
         }
 
+        .ranking-button {
+            display: inline-block;
+            background-color: #1e2a38;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 100px;
+            box-sizing: border-box;
+        }
+
     </style>
 
 </head>
@@ -76,8 +93,8 @@
 <body>
     <h1>HOME PAGE</h1>
 
-    <a href="/championranking/0">
-        <button class="ranking-button">ranking</button>
+    <a href="/championranking/0" class="ranking-button">
+        ranking
     </a>
 
     <input type="TEXT" id="searchbar" placeholder="Search champions">

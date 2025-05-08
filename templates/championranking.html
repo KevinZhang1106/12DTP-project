@@ -153,6 +153,16 @@
                 font-size: 14px;
             }
         }
+
+        .order-buttons {
+            background-color: #3a70ff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
     </style>
 </head>
 
@@ -192,9 +202,15 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Winrate</th>
-                    <th>Pickrate</th>
-                    <th>Banrate</th>
+                    <th><a href="/championranking/{{current_lane}}?sort_by=winrate" class="order-buttons">
+                        Winrate
+                    </a></th>
+                    <th><a href="/championranking/{{current_lane}}?sort_by=pickrate" class="order-buttons">
+                        Pickrate
+                    </a></th>
+                    <th><a href="/championranking/{{current_lane}}?sort_by=banrate" class="order-buttons">
+                        Banrate
+                    </a></th>
                 </tr>
             </thead>
             <tbody>

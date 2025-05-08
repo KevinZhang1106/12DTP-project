@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 
 app = Flask(__name__)
@@ -58,12 +58,16 @@ def championstatspage(champ_id, lane_id):
 
 @app.route('/championranking/<int:lane_id>')
 def championrankingpage(lane_id):
+    sort_by = request.args.get("sort_by", "winrate")
     conn = sqlite3.connect("champions.db")
     cur = conn.cursor()
-    cur.execute("SELECT cs.champ_id, c.champ_name, cs.winrate, cs.pickrate, cs.banrate FROM ChampionStats cs "
-                "JOIN Champions c ON cs.champ_id=c.champ_id "                
-                "WHERE cs.lane_id=? "
-                "ORDER BY cs.winrate DESC", (lane_id, )
+
+    query = f"""SELECT cs.champ_id, c.champ_name, cs.winrate, cs.pickrate, cs.banrate FROM ChampionStats cs
+                    JOIN Champions c ON cs.champ_id=c.champ_id      
+                    WHERE cs.lane_id=?
+                    ORDER BY cs.{sort_by} DESC"""
+    
+    cur.execute(query, (lane_id,)
                 )
     ranking = cur.fetchall()
 
@@ -79,7 +83,7 @@ def championrankingpage(lane_id):
     searchbar = cur.fetchall()
 
     conn.close()
-    return render_template("championranking.html", ranking=ranking, all_lanes=all_lanes, current_lane=lane_id, searchbar=searchbar)
+    return render_template("championranking.html", ranking=ranking, all_lanes=all_lanes, current_lane=lane_id, searchbar=searchbar, sort_by=sort_by)
 
 
 if __name__ == "__main__":

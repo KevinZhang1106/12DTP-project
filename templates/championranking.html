@@ -128,13 +128,15 @@
         .ranking-table th,
         .ranking-table td {
             padding: 16px;
-            text-align: left;
+            text-align: center;
         }
 
         .ranking-table th {
             background-color: #1e2a38;
             color: white;
             font-size: 16px;
+            padding: 0;
+            text-align: center;
         }
 
         .ranking-table tr:nth-child(even) {
@@ -155,12 +157,20 @@
         }
 
         .order-buttons {
+            display: block;
+            width: 100%;
+            height: 100%;
             background-color: #3a70ff;
             color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 14px;
+            padding: 16px;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center; 
             text-decoration: none;
+            transition: background-color 0.3s ease;
         }
 
     </style>

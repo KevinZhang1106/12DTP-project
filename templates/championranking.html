@@ -227,17 +227,17 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th><a href="/championranking/{{current_lane}}?sort_by=winrate" 
+                    <th><a {% if sort_by != 'winrate' %}href="/championranking/{{current_lane}}?sort_by=winrate"{% endif %} 
                         class="{% if sort_by == 'winrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
                         Winrate
                     </a></th>
-                    <th><a href="/championranking/{{current_lane}}?sort_by=pickrate" 
+                    <th><a {% if sort_by != 'pickrate' %}href="/championranking/{{current_lane}}?sort_by=pickrate"{% endif %}
                         class="{% if sort_by == 'pickrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
                         Pickrate
                     </a></th>
-                    <th><a href="/championranking/{{current_lane}}?sort_by=banrate" 
+                    <th><a {% if sort_by != 'banrate' %}href="/championranking/{{current_lane}}?sort_by=banrate" {% endif %}
                         class="{% if sort_by == 'banrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
                         Banrate

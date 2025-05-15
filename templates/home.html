@@ -29,8 +29,7 @@
             font-size: 16px;
             border: none;
             border-radius: 8px;
-            margin-bottom: 20px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
 
         .button-container {
@@ -85,6 +84,10 @@
             max-width: 100px;
             box-sizing: border-box;
         }
+        #matches-text{
+            color: gray;
+            display: none;
+        }
     </style>
 
 </head>
@@ -108,24 +111,36 @@
         {% endfor %}
     </div>
 
+    <p id="matches-text">No matches found</p>
+
     <script>
 
         document.addEventListener("DOMContentLoaded", () => {
             const searchbar = document.getElementById("searchbar");
             const links = document.querySelectorAll(".champion-link");
+            const matches = document.getElementById("matches-text")
 
             searchbar.addEventListener("input", function () {
                 const searchText = this.value.toLowerCase();
+                let hasMatches = false;
 
                 links.forEach(link => {
                     const champion = link.getAttribute("data-name");
 
-                    if (searchText && champion.includes(searchText)) {
+                    if (searchText.length > 0 && champion.includes(searchText)) {
                         link.style.display = "block";
+                        hasMatches = true;
                     } else {
                         link.style.display = "none";
                     }
                 });
+
+                if (searchText.length > 0 && hasMatches == false) {
+                    matches.style.display = "block";
+                }
+                else {
+                    matches.style.display = "none";
+                }
 
             });
         })

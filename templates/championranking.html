@@ -46,17 +46,15 @@
             font-size: 16px;
             border: none;
             border-radius: 8px;
-            margin-bottom: 20px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
 
         .button-container {
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-width: 400px;
-            width: 100%;
-            margin-bottom: 30px;
         }
 
         .champion-link {
@@ -102,6 +100,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size: 14px;
+            margin-top: 20px;
         }
 
         .current-lane {
@@ -188,6 +187,11 @@
             cursor: default;
         }
 
+        #matches-text {
+            display: none;
+            color: gray;
+        }
+
     </style>
 </head>
 
@@ -211,6 +215,8 @@
             </a>
             {% endfor %}
         </div>
+
+        <p id="matches-text">No matches found</p>
 
         <div class="lane-selector">
             {% for lane in all_lanes %}
@@ -261,18 +267,29 @@
         document.addEventListener("DOMContentLoaded", () => {
             const searchbar = document.getElementById("searchbar");
             const links = document.querySelectorAll(".champion-link");
+            const matches = document.getElementById("matches-text")
 
             searchbar.addEventListener("input", function () {
                 const searchText = this.value.toLowerCase();
+                let hasMatches = false;
 
                 links.forEach(link => {
                     const champion = link.getAttribute("data-name");
-                    if (searchText && champion.includes(searchText)) {
+                    if (searchText.length > 0 && champion.includes(searchText)) {
                         link.style.display = "block";
+                        hasMatches = true;
                     } else {
                         link.style.display = "none";
                     }
                 });
+
+                if (searchText.length > 0 && hasMatches == false) {
+                    matches.style.display = "block";
+                }
+                else {
+                    matches.style.display = "none";
+                }
+
             });
         });
     </script>

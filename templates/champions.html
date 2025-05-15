@@ -139,6 +139,11 @@
             gap: 10px;
             margin-bottom: 20px;
         }
+
+        #matches-text {
+            display: none;
+            color: gray;
+        }
     </style>
 
 </head>
@@ -161,6 +166,8 @@
         {% endfor %}
     </div>
 
+    <p id="matches-text">No matches found</p>
+
     <div class="lane-container">
         {% for lane in all_lanes %}
         <a href="/champions/{{champ_id}}/{{lane[0]}}" class="lane-link">
@@ -179,18 +186,28 @@
         document.addEventListener("DOMContentLoaded", () => {
             const searchbar = document.getElementById("searchbar");
             const links = document.querySelectorAll(".champion-link");
+            const matches = document.getElementById("matches-text");
 
             searchbar.addEventListener("input", function () {
                 const searchText = this.value.toLowerCase();
+                let hasMatches = false;
 
                 links.forEach(link => {
                     const champion = link.getAttribute("data-name");
-                    if (searchText && champion.includes(searchText)) {
+                    if (searchText.length > 0 && champion.includes(searchText)) {
                         link.style.display = "block";
+                        hasMatches = true;
                     } else {
                         link.style.display = "none";
                     }
                 });
+
+                if (searchText.length > 0 && hasMatches == false) {
+                    matches.style.display = "block";
+                }
+                else {
+                    matches.style.display = "none";
+                }
             });
         });
     </script>

@@ -29,13 +29,11 @@
         }
 
         #searchbar {
-            width: 100%;
-            max-width: 400px;
             padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 8px;
-            margin: 20px 0;
+            width: 100%;
         }
 
         .button-container {
@@ -103,7 +101,6 @@
         }
 
         .home-button {
-            display: inline-block;
             background-color: #1e2a38;
             color: #fff;
             padding: 10px 16px;
@@ -113,13 +110,10 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 100%;
-            max-width: 100px;
-            box-sizing: border-box;
+            width: auto;
         }
 
         .ranking-button {
-            display: inline-block;
             background-color: #1e2a38;
             color: #fff;
             padding: 10px 16px;
@@ -129,20 +123,22 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 100%;
-            max-width: 100px;
-            box-sizing: border-box;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            width: auto;
         }
 
         #matches-text {
             display: none;
             color: gray;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            width: 1000px;
         }
     </style>
 
@@ -154,9 +150,8 @@
     <div class="nav-buttons">
         <a href="/" class="home-button">Home</a>
         <a href="/championranking/0" class="ranking-button">Ranking</a>
+        <input type="text" id="searchbar" placeholder="Search Champions">
     </div>
-
-    <input type="text" id="searchbar" placeholder="Search Champions">
 
     <div class="button-container">
         {% for champion in searchbar %}

@@ -24,7 +24,6 @@
         }
 
         .home-button {
-            display: inline-block;
             background-color: #1e2a38;
             color: #fff;
             padding: 10px 16px;
@@ -34,19 +33,15 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 100%;
-            max-width: 100px;
-            box-sizing: border-box;
+            width: auto;
         }
 
         #searchbar {
-            width: 100%;
-            max-width: 400px;
             padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 8px;
-            margin: 20px 0;
+            width: 100%;
         }
 
         .button-container {
@@ -192,6 +187,16 @@
             color: gray;
         }
 
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            width: 800px;
+        }
+
     </style>
 </head>
 
@@ -200,13 +205,12 @@
     <div class="container">
 
         <h1>Champion Ranking Page</h1>
-
-        <a href="/" class="home-button">
-            Home
-        </a>
-
-        <input type="text" id="searchbar" placeholder="Search Champions">
-
+        <div class="nav-buttons">
+            <a href="/" class="home-button">
+                Home
+            </a>
+            <input type="text" id="searchbar" placeholder="Search Champions">
+        </div>
         <div class="button-container">
             {% for champion in searchbar %}
             <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link"

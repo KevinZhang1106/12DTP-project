@@ -23,13 +23,11 @@
         }
 
         #searchbar {
-            width: 100%;
-            max-width: 400px;
             padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 8px;
-            margin: 20px 0;
+            width: 100%;
         }
 
         .button-container {
@@ -64,13 +62,11 @@
 
         .champion-link {
             display: none;
-            /* Hides the entire link+button */
             width: 100%;
             text-decoration: none;
         }
 
         .ranking-button {
-            display: inline-block;
             background-color: #1e2a38;
             color: #fff;
             padding: 10px 16px;
@@ -80,13 +76,22 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 100%;
-            max-width: 100px;
-            box-sizing: border-box;
+            width: auto;
         }
-        #matches-text{
+
+        #matches-text {
             color: gray;
             display: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            width: 800px;
         }
     </style>
 
@@ -95,12 +100,12 @@
 <body>
     <h1>HOME PAGE</h1>
 
-    <a href="/championranking/0" class="ranking-button">
-        ranking
-    </a>
-
-    <input type="TEXT" id="searchbar" placeholder="Search champions">
-
+    <div class="nav-buttons">
+        <a href="/championranking/0" class="ranking-button">
+            Ranking
+        </a>
+        <input type="TEXT" id="searchbar" placeholder="Search champions">
+    </div>
     <div class="button-container">
         {% for champion in searchbar %}
         <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">

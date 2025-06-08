@@ -105,7 +105,7 @@
         }
 
         .ranking-table {
-            width: 100%;
+            width: 800px;
             border-collapse: collapse;
             background-color: #fff;
             border-radius: 8px;
@@ -137,18 +137,9 @@
             background-color: #e0e7ff;
         }
 
-        @media (max-width: 768px) {
-
-            .ranking-table th,
-            .ranking-table td {
-                padding: 12px;
-                font-size: 14px;
-            }
-        }
-
         .order-buttons {
             display: block;
-            width: 100%;
+            width: 200px;
             height: 100%;
             background-color: #3a70ff;
             color: #fff;
@@ -165,7 +156,7 @@
 
         .current-order-button {
             display: block;
-            width: 100%;
+            width: 200px;
             height: 100%;
             background-color: #3a70ff;
             color: #fff;
@@ -195,6 +186,11 @@
             margin-bottom: 20px;
             width: 100%;
             width: 800px;
+        }
+        
+        .name-column {
+            width:  200px;
+            height: 100%;
         }
 
     </style>
@@ -236,7 +232,7 @@
         <table class="ranking-table">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th class="name-column">Name</th>
                     <th><a {% if sort_by != 'winrate' %}href="/championranking/{{current_lane}}?sort_by=winrate"{% endif %} 
                         class="{% if sort_by == 'winrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
@@ -279,7 +275,7 @@
 
                 links.forEach(link => {
                     const champion = link.getAttribute("data-name");
-                    if (searchText.length > 0 && champion.includes(searchText)) {
+                    if (searchText.length > 0 && champion.startsWith(searchText)) {
                         link.style.display = "block";
                         hasMatches = true;
                     } else {

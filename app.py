@@ -29,7 +29,7 @@ def championstatspage(champ_id, lane_id):
         "JOIN Lanes l ON cs.lane_id=l.lane_id "
         "WHERE cs.champ_id=? AND cs.lane_id=?", (champ_id, lane_id)
     )
-    championstats = cur.fetchall()
+    championstats = cur.fetchone()
 
     cur.execute(
         "SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate FROM ChampionStats cs "

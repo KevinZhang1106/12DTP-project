@@ -6,94 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f1923;
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        #searchbar {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            width: 100%;
-        }
-
-        .button-container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .champion-button {
-            background-color: #1e2a38;
-            color: #fff;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: left;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        .champion-button:hover {
-            background-color: #2d3a4d;
-        }
-
-        a {
-            text-decoration: none;
-            width: 100%;
-        }
-
-        .champion-link {
-            display: none;
-            width: 100%;
-            text-decoration: none;
-        }
-
-        .ranking-button {
-            background-color: #1e2a38;
-            color: #fff;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: auto;
-        }
-
-        #matches-text {
-            color: gray;
-            display: none;
-        }
-
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            width: 100%;
-            width: 800px;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/home.css">
 
 </head>
 
@@ -109,9 +22,7 @@
     <div class="button-container">
         {% for champion in searchbar %}
         <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">
-            <button class="champion-button">
                 {{champion[2]}}
-            </button>
         </a>
         {% endfor %}
     </div>

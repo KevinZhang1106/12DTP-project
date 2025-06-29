@@ -6,141 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Champions</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f1923;
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        a {
-            text-decoration: none;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        #searchbar {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            width: 100%;
-        }
-
-        .button-container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .champion-link {
-            display: none;
-            width: 100%;
-        }
-
-        .champion-button {
-            background-color: #1e2a38;
-            color: #fff;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: left;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        .champion-button:hover {
-            background-color: #2d3a4d;
-        }
-
-        .lane-container {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-
-        }
-
-        .lane-link {
-            text-decoration: none;
-        }
-
-        .lane-button {
-            background-color: #1e2a38;
-            color: #fff;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 14px;
-        }
-
-        .current-lane {
-            background-color: #3a70ff;
-            font-weight: bold;
-            cursor: default;
-        }
-
-        .unavailable {
-            background-color: #444c58;
-            opacity: 0.5;
-            cursor: default;
-        }
-
-        .home-button {
-            background-color: #1e2a38;
-            color: #fff;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: auto;
-        }
-
-        .ranking-button {
-            background-color: #1e2a38;
-            color: #fff;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: auto;
-        }
-
-        #matches-text {
-            display: none;
-            color: gray;
-        }
-
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            width: 100%;
-            width: 1000px;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/champions.css">
 
 </head>
 
@@ -156,22 +22,25 @@
     <div class="button-container">
         {% for champion in searchbar %}
         <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">
-            <button class="champion-button">{{champion[2]}}</button>
+            {{champion[2]}}
         </a>
         {% endfor %}
     </div>
 
     <p id="matches-text">No matches found</p>
 
+    <div class="image-container">
+        <img src="/static/{{championstats[6]}}/icon.png" alt="{{championstats[6]}} icon"/>
+    </div>
+
     <div class="lane-container">
         {% for lane in all_lanes %}
-        <a href="/champions/{{champ_id}}/{{lane[0]}}" class="lane-link">
-            <button class="lane-button
-                       {% if lane[0] == current_lane %} current-lane {% endif %}
-                       {% if lane[0] not in available_lanes %} unavailable {% endif %}" {% if lane[0]==current_lane or
-                lane[0] not in available_lanes %} disabled {% endif %}>
-                {{ lane[1] }}
-            </button>
+        <a href="/champions/{{champ_id}}/{{lane[0]}}" 
+            class="lane-button
+                    {% if lane[0] == current_lane %} current-lane {% endif %}
+                    {% if lane[0] not in available_lanes %} disabled-lane {% endif %}">
+    
+                    {{ lane[1] }}
         </a>
         {% endfor %}
     </div>

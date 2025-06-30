@@ -20,7 +20,7 @@
             <div class="search-results">
                 {% for champion in searchbar %}
                     <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">
-                    <img src="/static/{{champion[2]}}/icon.png"/>
+                    <img src="/static/Images/{{champion[2]}}/icon.png"/>
                     {{champion[2]}}
                     </a>
                 {% endfor %}

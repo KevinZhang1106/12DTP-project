@@ -175,3 +175,9 @@ a {
     width: 100%;
     max-width: 680px;
 }
+
+.ranking-image {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}

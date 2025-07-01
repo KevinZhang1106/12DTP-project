@@ -221,3 +221,31 @@ a {
     visibility: visible;
     opacity: 1;
 }
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    background-color: #1c1f26;
+    color: #ffffff;
+    border: 2px solid #3a3f4b;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    width: 80%;
+    max-width: 800px;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.stats-container div {
+    flex: 1;
+}
+
+.stats-container div span {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}

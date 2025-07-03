@@ -84,6 +84,9 @@
     </div>
 </div>
 
+<button id="update-button">Update Data</button>
+<p id="update-status"></p>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -113,6 +116,30 @@
                 }
             });
         });
+
+        document.getElementById("update-button").addEventListener("click", () => {
+            const password = prompt("Enter the admin password:");
+            if (!password) return;
+
+            fetch("/update-data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success == true) {
+                    window.location.href = "/updatedata";
+                } else {
+                    const status = document.getElementById("update-status");
+                    status.textContent = "Incorrect password.";
+                    status.style.color = "red";
+                }
+            })
+        });
+
     </script>
 
 </body>

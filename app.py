@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import sqlite3
 
 app = Flask(__name__)
 
+ADMIN_PASSWORD = "password"
 
 @app.route("/")
 def home():
@@ -85,6 +86,22 @@ def championrankingpage(lane_id):
     conn.close()
     return render_template("championranking.html", ranking=ranking, all_lanes=all_lanes, current_lane=lane_id, searchbar=searchbar, sort_by=sort_by)
 
+@app.route("/update-data", methods=["POST"])
+def check_password():
+    data = request.get_json()
+    password = data.get("password")
+
+    if password == ADMIN_PASSWORD:
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False})
+
+@app.route("/updatedata")
+def updatedata_page():
+    # Optional: you can run your update logic here
+    # your_db_logic.update_champion_data()
+
+    return render_template("updatedata.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -98,10 +98,55 @@ def check_password():
 
 @app.route("/updatedata")
 def updatedata_page():
-    # Optional: you can run your update logic here
-    # your_db_logic.update_champion_data()
+    conn = sqlite3.connect("champions.db")
+    cur = conn.cursor()
+    cur.execute("SELECT champ_id, champ_name FROM Champions")
+    champions = cur.fetchall()
 
-    return render_template("updatedata.html")
+    cur.execute(
+        "SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate FROM ChampionStats cs "
+        "JOIN (SELECT champ_id, MAX(pickrate) as max_pickrate FROM ChampionStats GROUP BY champ_id) max_stats " 
+        "ON cs.champ_id=max_stats.champ_id JOIN Champions c ON cs.champ_id=c.champ_id "
+        "WHERE cs.pickrate=max_stats.max_pickrate")
+    searchbar = cur.fetchall()
+
+    conn.close()
+
+    return render_template("updatedata.html", champions=champions, searchbar=searchbar)
+
+@app.route("/get-champion-stats/<int:champ_id>")
+def get_champion_stats(champ_id):
+    conn = sqlite3.connect("champions.db")
+    cur = conn.cursor()
+    cur.execute("SELECT winrate, pickrate, banrate FROM ChampionStats WHERE champ_id=?", (champ_id,))
+    stats = cur.fetchone()
+    conn.close()
+
+    return jsonify({
+        "winrate": stats[0],
+        "pickrate": stats[1],
+        "banrate": stats[2]
+    })
+
+@app.route("/update-champion", methods=["POST"])
+def update_champion():
+    data = request.get_json()
+    champ_id = data["champId"]
+    winrate = float(data["winrate"])
+    pickrate = float(data["pickrate"])
+    banrate = float(data["banrate"])
+
+    conn = sqlite3.connect("champions.db")
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE ChampionStats 
+        SET winrate = ?, pickrate = ?, banrate = ? 
+        WHERE champ_id = ? 
+    """, (winrate, pickrate, banrate, champ_id))
+    conn.commit()
+    conn.close()
+
+    return jsonify({"success": True, "message": "Champion stats updated."})
 
 if __name__ == "__main__":
     app.run(debug=True)

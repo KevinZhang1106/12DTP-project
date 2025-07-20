@@ -12,96 +12,122 @@
 
 <body>
 
-        <h1>Champion Ranking Page</h1>
-
+    <nav class="nav-bar">
         <div class="nav-buttons-container">
-        <a href="/" class="home-button">Home</a>
-        <div class="search-wrapper">
-        <input type="text" id="searchbar" placeholder="Search Champions">
-            <div class="search-results">
-                {% for champion in searchbar %}
-                    <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">
-                    <img src="/static/Images/{{champion[2]}}/icon.png"/>
-                    {{champion[2]}}
+            <a href="/" class="home-button">Home</a>
+            <div class="search-wrapper">
+                <input type="text" id="searchbar" placeholder="Search Champions">
+                <div class="search-results">
+                    {% for champion in searchbar %}
+                    <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link"
+                        data-name="{{champion[2].lower()}}">
+                        <img src="/static/Images/{{champion[2]}}/icon.png" />
+                        {{champion[2]}}
                     </a>
-                {% endfor %}
-                <p id="matches-text">No matches found</p>
+                    {% endfor %}
+                    <p id="matches-text">No matches found</p>
+                </div>
             </div>
+            <button id="update-button">Update Data</button>
         </div>
+    </nav>
+    <p id="update-status"></p>
+
+    <p id="matches-text">No matches found</p>
+
+    <div class="lane-container">
+        {% for lane in all_lanes %}
+        <a href="/championranking/{{lane[0]}}?sort_by={{sort_by}}"
+            class="lane-button {% if lane[0] == current_lane %} current-lane {% endif %}">
+
+            {{lane[1]}}
+        </a>
+        {% endfor %}
     </div>
 
-        <p id="matches-text">No matches found</p>
-
-        <div class="lane-container">
-            {% for lane in all_lanes %}
-            <a href="/championranking/{{lane[0]}}?sort_by={{sort_by}}" class="lane-button {% if lane[0] == current_lane %} current-lane {% endif %}">
-
-                    {{lane[1]}}
-            </a>
-            {% endfor %}
-        </div>
-
-        <table class="ranking-table">
-            <thead>
-                <tr>
-                    <th class="name-column">Name</th>
-                    <th><a {% if sort_by != 'winrate' %}href="/championranking/{{current_lane}}?sort_by=winrate"{% endif %} 
+    <table class="ranking-table">
+        <thead>
+            <tr>
+                <th class="name-column">Name</th>
+                <th><a {% if sort_by !='winrate' %}href="/championranking/{{current_lane}}?sort_by=winrate" {% endif %}
                         class="{% if sort_by == 'winrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
                         Winrate
                     </a></th>
-                    <th><a {% if sort_by != 'pickrate' %}href="/championranking/{{current_lane}}?sort_by=pickrate"{% endif %}
-                        class="{% if sort_by == 'pickrate' %} current-order-button
+                <th><a {% if sort_by !='pickrate' %}href="/championranking/{{current_lane}}?sort_by=pickrate" {% endif
+                        %} class="{% if sort_by == 'pickrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
                         Pickrate
                     </a></th>
-                    <th><a {% if sort_by != 'banrate' %}href="/championranking/{{current_lane}}?sort_by=banrate" {% endif %}
+                <th><a {% if sort_by !='banrate' %}href="/championranking/{{current_lane}}?sort_by=banrate" {% endif %}
                         class="{% if sort_by == 'banrate' %} current-order-button
                         {% else %} order-buttons {% endif %}">
                         Banrate
                     </a></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for champion in ranking %}
-                <tr>
-                    <td> <img src="/static/Images/{{champion[1]}}/icon.png" alt="icon" class="ranking-image"/> {{champion[1]}}</td>
-                    <td>{{champion[2]}}%</td>
-                    <td>{{champion[3]}}%</td>
-                    <td>{{champion[4]}}%</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            </tr>
+        </thead>
+        <tbody>
+            {% for champion in ranking %}
+            <tr>
+                <td> <img src="/static/Images/{{champion[1]}}/icon.png" alt="icon" class="ranking-image" />
+                    {{champion[1]}}</td>
+                <td>{{champion[2]}}%</td>
+                <td>{{champion[3]}}%</td>
+                <td>{{champion[4]}}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const searchbar = document.getElementById("searchbar");
-            const links = document.querySelectorAll(".champion-link");
-            const matches = document.getElementById("matches-text")
 
-            searchbar.addEventListener("input", function () {
-                const searchText = this.value.toLowerCase();
-                let hasMatches = false;
+        const searchbar = document.getElementById("searchbar");
+        const links = document.querySelectorAll(".champion-link");
+        const matches = document.getElementById("matches-text");
 
-                links.forEach(link => {
-                    const champion = link.getAttribute("data-name");
-                    if (searchText.length > 0 && champion.startsWith(searchText)) {
-                        link.style.display = "block";
-                        hasMatches = true;
-                    } else {
-                        link.style.display = "none";
-                    }
-                });
+        searchbar.addEventListener("input", function () {
+            const searchText = this.value.toLowerCase();
+            let hasMatches = false;
 
-                if (searchText.length > 0 && hasMatches == false) {
-                    matches.style.display = "block";
+            links.forEach(link => {
+                const champion = link.getAttribute("data-name");
+                if (searchText.length > 0 && champion.startsWith(searchText)) {
+                    link.style.display = "block";
+                    hasMatches = true;
+                } else {
+                    link.style.display = "none";
                 }
-                else {
-                    matches.style.display = "none";
-                }
-
             });
+
+            if (searchText.length > 0 && hasMatches == false) {
+                matches.style.display = "block";
+            }
+            else {
+                matches.style.display = "none";
+            }
+        });
+
+
+        document.getElementById("update-button").addEventListener("click", () => {
+            const password = prompt("Enter the admin password:");
+
+            fetch("/update-data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success == true) {
+                    window.location.href = "/updatedata";
+                } else {
+                    const status = document.getElementById("update-status");
+                    status.textContent = "Incorrect password.";
+                    status.style.color = "red";
+                }
+            })
         });
     </script>
 

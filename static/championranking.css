@@ -9,6 +9,65 @@ body {
     align-items: center;
 }
 
+.nav-bar {
+    display: flex;
+    width: 100%;
+    background-color: #1c2734;
+    padding: 12px 0;
+    justify-content: center;
+}
+
+.nav-buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1050px;
+    gap: 25px;
+}
+
+.home-button,
+#update-button {
+    background-color: #2d3a4d;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.home-button:hover,
+#update-button:hover {
+    background-color: #3a70ff;
+    transform: scale(1.05);
+}
+
+.search-wrapper {
+    position: relative;
+    width: 700px;
+    flex: 1;
+}
+
+#searchbar {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+.search-results {
+    position: absolute;
+    width: 100%;
+    background-color: #0f1923;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .ranking-table {
     width: 800px;
     border-collapse: collapse;
@@ -77,7 +136,6 @@ body {
 
 a {
     text-decoration: none;
-    width: 100%;
 }
 
 .lane-container {
@@ -100,40 +158,6 @@ a {
     background-color: #3a70ff;
     font-weight: bold;
     cursor: default;
-}
-
-.home-button {
-    background-color: #1e2a38;
-    color: #fff;
-    padding: 10px 16px;
-    font-size: 14px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: auto;
-    margin-bottom: 8px;
-}
-    
-.nav-buttons-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    width: 800px;
-}
-
-.search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #0f1923;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .champion-link {
@@ -161,19 +185,6 @@ a {
 #matches-text {
     color: gray;
     display: none;
-}
-
-#searchbar {
-    padding: 8px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 8px;
-}
-
-.search-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 680px;
 }
 
 .ranking-image {

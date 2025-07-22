@@ -135,6 +135,10 @@
                     const status = document.getElementById("update-status");
                     status.textContent = "Incorrect password.";
                     status.style.color = "red";
+
+                    setTimeout(() => {
+                        status.textContent = "";
+                        }, 2500);
                 }
             })
         });

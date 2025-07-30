@@ -62,7 +62,7 @@
 
             links.forEach(link => {
                 const champion = link.getAttribute("data-name");
-                if (searchText.length > 0 && champion.startsWith(searchText)) {
+                if (searchText.length > 0 && champion.includes(searchText)) {
                     link.style.display = "block";
                     hasMatches = true;
                 } else {

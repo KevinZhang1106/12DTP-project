@@ -86,7 +86,7 @@ def championrankingpage(lane_id):
     conn.close()
     return render_template("championranking.html", ranking=ranking, all_lanes=all_lanes, current_lane=lane_id, searchbar=searchbar, sort_by=sort_by)
 
-@app.route("/update-data", methods=["POST"])
+@app.route("/check-password", methods=["POST"])
 def check_password():
     data = request.get_json()
     password = data.get("password")
@@ -142,7 +142,7 @@ def update_champion():
         UPDATE ChampionStats 
         SET winrate = ?, pickrate = ?, banrate = ? 
         WHERE champ_id = ? 
-    """, (winrate, pickrate, banrate, champ_id))
+    """, (winrate, pickrate, banrate, champ_id,))
     conn.commit()
     conn.close()
 

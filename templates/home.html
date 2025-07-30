@@ -45,7 +45,7 @@
 
             links.forEach(link => {
                 const champion = link.getAttribute("data-name");
-                if (searchText.length > 0 && champion.startsWith(searchText)) {
+                if (searchText.length > 0 && champion.includes(searchText)) {
                     link.style.display = "block";
                     hasMatches = true;
                 } else {
@@ -65,7 +65,7 @@
         document.getElementById("update-button").addEventListener("click", () => {
             const password = prompt("Enter the admin password:");
 
-            fetch("/update-data", {
+            fetch("/check-password", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -81,7 +81,7 @@
                     status.textContent = "Incorrect password.";
                     status.style.color = "red";
 
-                     setTimeout(() => {
+                    setTimeout(() => {
                         status.textContent = "";
                         }, 2500);
                 }

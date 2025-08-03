@@ -114,11 +114,34 @@ def updatedata_page():
 
     return render_template("updatedata.html", champions=champions, searchbar=searchbar)
 
-@app.route("/get-champion-stats/<int:champ_id>")
-def get_champion_stats(champ_id):
+@app.route("/get-available-lanes/<int:champ_id>")
+def get_available_lanes(champ_id):
     conn = sqlite3.connect("champions.db")
     cur = conn.cursor()
-    cur.execute("SELECT winrate, pickrate, banrate FROM ChampionStats WHERE champ_id=?", (champ_id,))
+
+    cur.execute("""
+        SELECT cs.lane_id, l.lane_name FROM ChampionStats cs
+        JOIN Lanes l ON cs.lane_id = l.lane_id
+        WHERE cs.champ_id = ?
+    """, (champ_id,))
+
+    lanes = []
+    for lane_id, lane_name in cur.fetchall():
+        lane = {"lane_id": lane_id, "lane_name": lane_name}
+        lanes.append(lane)
+
+    conn.close()
+    return jsonify({"lanes": lanes})
+
+@app.route("/get-champion-stats/<int:champ_id>/<int:lane_id>")
+def get_champion_stats(champ_id, lane_id):
+    conn = sqlite3.connect("champions.db")
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT winrate, pickrate, banrate 
+        FROM ChampionStats 
+        WHERE champ_id = ? AND lane_id = ?
+    """, (champ_id, lane_id))
     stats = cur.fetchone()
     conn.close()
 
@@ -132,6 +155,7 @@ def get_champion_stats(champ_id):
 def update_champion():
     data = request.get_json()
     champ_id = data["champId"]
+    lane_id = data["laneId"]
     winrate = float(data["winrate"])
     pickrate = float(data["pickrate"])
     banrate = float(data["banrate"])
@@ -141,8 +165,8 @@ def update_champion():
     cur.execute("""
         UPDATE ChampionStats 
         SET winrate = ?, pickrate = ?, banrate = ? 
-        WHERE champ_id = ? 
-    """, (winrate, pickrate, banrate, champ_id,))
+        WHERE champ_id = ? AND lane_id = ?
+    """, (winrate, pickrate, banrate, champ_id, lane_id))
     conn.commit()
     conn.close()
 

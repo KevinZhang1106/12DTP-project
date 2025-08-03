@@ -33,8 +33,16 @@
         {% endfor %}
     </select>
 
+    <div id="lane-select-container">
+        <label for="lane-select">Select Lane:</label>
+        <select id="lane-select">
+            <option>-- Choose a Lane --</option>
+        </select>
+    </div>
+
     <form id="champion-form" class="champion-form">
         <input type="hidden" id="champ_id" name="champ_id" />
+        <input type="hidden" id="lane_id" name="lane_id" />
 
         <label>Winrate (%)</label>
         <input type="number" step="any" id="winrate" />

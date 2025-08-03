@@ -28,7 +28,7 @@ def championstatspage(champ_id, lane_id):
         "c.champ_name, c.passive_ability, c.q_ability, c.w_ability, c.e_ability, c.r_ability "
         "FROM ChampionStats cs JOIN Champions c ON cs.champ_id=c.champ_id "
         "JOIN Lanes l ON cs.lane_id=l.lane_id "
-        "WHERE cs.champ_id=? AND cs.lane_id=?", (champ_id, lane_id)
+        "WHERE cs.champ_id=? AND cs.lane_id=?", (champ_id, lane_id,)
     )
     championstats = cur.fetchone()
 
@@ -41,8 +41,8 @@ def championstatspage(champ_id, lane_id):
     searchbar = cur.fetchall()
 
     cur.execute(
-        "SELECT cl.lane_id FROM ChampionsLanes cl "
-        "WHERE cl.champ_id=?", (champ_id, )
+        "SELECT cs.lane_id FROM ChampionStats cs "
+        "WHERE cs.champ_id=?", (champ_id, )
     )
     available_lanes = []
     for lanes in cur.fetchall():

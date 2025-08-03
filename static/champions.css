@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #0f1923;
@@ -46,12 +45,13 @@ a {
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .home-button:hover,
 .ranking-button:hover,
 #update-button:hover {
-    background-color: #3a70ff;
+    background-color: #d6b55b;
     transform: scale(1.05);
 }
 
@@ -127,13 +127,13 @@ a {
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid #3a70ff;
+    border: 2px solid #d6b55b;
 }
 
 .image-container h1 {
     font-size: 28px;
     margin: 0;
-    color: #3a70ff;
+    color: #d6b55b;
 }
 
 .ability-container {
@@ -155,7 +155,7 @@ a {
 
 .ability-container img:hover {
     transform: scale(1.1);
-    background-color: #3a70ff;
+    background-color: #d6b55b;
 }
 
 .tooltip {
@@ -212,7 +212,7 @@ a {
 }
 
 .current-lane {
-    background-color: #3a70ff;
+    background-color: #3d4a5d;
     font-weight: bold;
     cursor: default;
 }

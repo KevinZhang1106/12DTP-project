@@ -1,4 +1,4 @@
- body {
+body {
     font-family: Arial, sans-serif;
     background-color: #0f1923;
     color: #fff;
@@ -17,7 +17,7 @@ a {
     text-decoration: none;
 }
  
- .nav-bar {
+.nav-bar {
     display: flex;
     width: 100%;
     background-color: #1c2734;
@@ -48,7 +48,7 @@ a {
 
 .home-button:hover,
 .ranking-button:hover {
-    background-color: #3a70ff;
+    background-color: #d6b55b;
     transform: scale(1.05);
 }
 
@@ -105,11 +105,67 @@ a {
     display: none;
 }
 
- label, select, input {
+
+label {
+    font-weight: bold;
+    font-size: 18px;
     display: block;
-    margin: 10px 0;
+    margin-bottom: 8px;
+    margin-top: 40px;
+}
+
+
+#champion-select {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 32px;
 }
 
 .champion-form {
     display: none;
+    max-width: 500px;
+    padding: 24px;
+}
+
+
+.champion-form label {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 16px 0 5px;
+}
+
+
+.champion-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+
+.champion-form button {
+    display: block;
+    margin: 24px auto 0 auto; 
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #d6b55b;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.champion-form button:hover {
+    opacity: 0.8;
+}
+
+
+#status {
+    margin-top: 16px;
+    font-weight: bold;
+    font-size: 16px;
 }

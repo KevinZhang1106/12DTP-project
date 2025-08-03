@@ -45,12 +45,12 @@ a {
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .ranking-button:hover,
 #update-button:hover {
-    background-color: #3a70ff;
-    transform: scale(1.05);
+    background-color: #d6b55b;
 }
 
 .search-wrapper {

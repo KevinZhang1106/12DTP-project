@@ -24,6 +24,7 @@ a {
     background-color: #1c2734;
     padding: 12px 0;
     justify-content: center;
+    position: fixed;
 }
 
 .nav-buttons-container {
@@ -76,6 +77,9 @@ a {
     flex-direction: column;
     gap: 10px;
     z-index: 1000;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .champion-link {

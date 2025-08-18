@@ -78,6 +78,9 @@ a {
     flex-direction: column;
     gap: 10px;
     z-index: 1000;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .champion-link {

@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import sqlite3
 
 import bcrypt
 from config import ADMIN_PASSWORD_HASH
 
 app = Flask(__name__)
+app.secret_key = "secretkey"
+
 
 @app.route("/")
 def home():
@@ -87,18 +89,25 @@ def championrankingpage(lane_id):
     conn.close()
     return render_template("championranking.html", ranking=ranking, all_lanes=all_lanes, current_lane=lane_id, searchbar=searchbar, sort_by=sort_by)
 
+
 @app.route("/check-password", methods=["POST"])
 def check_password():
     data = request.get_json()
     password = data.get("password")
 
     if bcrypt.checkpw(password.encode(), ADMIN_PASSWORD_HASH):
+        session['is_admin'] = True
         return jsonify({"success": True})
     else:
         return jsonify({"success": False})
 
+
 @app.route("/updatedata")
 def updatedata_page():
+
+    if session.get('is_admin') != True:
+        return redirect(url_for('home'))
+    
     conn = sqlite3.connect("champions.db")
     cur = conn.cursor()
     cur.execute("SELECT champ_id, champ_name FROM Champions")
@@ -114,6 +123,7 @@ def updatedata_page():
     conn.close()
 
     return render_template("updatedata.html", champions=champions, searchbar=searchbar)
+
 
 @app.route("/get-available-lanes/<int:champ_id>")
 def get_available_lanes(champ_id):
@@ -134,6 +144,7 @@ def get_available_lanes(champ_id):
     conn.close()
     return jsonify({"lanes": lanes})
 
+
 @app.route("/get-champion-stats/<int:champ_id>/<int:lane_id>")
 def get_champion_stats(champ_id, lane_id):
     conn = sqlite3.connect("champions.db")
@@ -151,6 +162,7 @@ def get_champion_stats(champ_id, lane_id):
         "pickrate": stats[1],
         "banrate": stats[2]
     })
+
 
 @app.route("/update-champion", methods=["POST"])
 def update_champion():
@@ -172,6 +184,12 @@ def update_champion():
     conn.close()
 
     return jsonify({"success": True, "message": "Champion stats updated."})
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)

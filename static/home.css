@@ -10,7 +10,9 @@ body {
 }
 
 h1 {
-    margin-bottom: 20px;
+    margin-top: 25vh;
+    font-size: 50px;
+    color: #d6b55b;
 }
 
 a {

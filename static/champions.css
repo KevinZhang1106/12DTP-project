@@ -25,6 +25,9 @@ a {
     background-color: #1c2734;
     padding: 20px 0;
     justify-content: center;
+    position: sticky;
+    z-index: 1000;
+    top: 0;
 }
 
 .nav-buttons-container {

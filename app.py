@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3
 
-app = Flask(__name__)
+import bcrypt
+from config import ADMIN_PASSWORD_HASH
 
-ADMIN_PASSWORD = "password"
+app = Flask(__name__)
 
 @app.route("/")
 def home():
@@ -91,7 +92,7 @@ def check_password():
     data = request.get_json()
     password = data.get("password")
 
-    if password == ADMIN_PASSWORD:
+    if bcrypt.checkpw(password.encode(), ADMIN_PASSWORD_HASH):
         return jsonify({"success": True})
     else:
         return jsonify({"success": False})

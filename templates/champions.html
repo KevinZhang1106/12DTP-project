@@ -37,12 +37,26 @@
         <img src="/static/Images/{{championstats[6]}}/icon.png" alt="icon"/>
         <h1>{{championstats[6]}}</h1>
         <div class="ability-container">
-            {% for i, ability in enumerate(['passive','q','w','e','r']) %}
             <div class="tooltip">
-                <img src="/static/Images/{{championstats[6]}}/{{ability}}.png" alt="{{ability}}" />
-                <span class="tooltip-text">{{championstats[7+i]}}</span>
+                <img src="/static/Images/{{championstats[6]}}/passive.png" alt="passive" />
+                <span class="tooltip-text">{{championstats[7]}}</span>
             </div>
-            {% endfor %}
+            <div class="tooltip">
+                <img src="/static/Images/{{championstats[6]}}/q.png" alt="q" />
+                <span class="tooltip-text">{{championstats[8]}}</span>
+            </div>
+            <div class="tooltip">
+                <img src="/static/Images/{{championstats[6]}}/w.png" alt="w" />
+                <span class="tooltip-text">{{championstats[9]}}</span>
+            </div>
+            <div class="tooltip">
+                <img src="/static/Images/{{championstats[6]}}/e.png" alt="e" />
+                <span class="tooltip-text">{{championstats[10]}}</span>
+            </div>
+            <div class="tooltip">
+                <img src="/static/Images/{{championstats[6]}}/r.png" alt="r" />
+                <span class="tooltip-text">{{championstats[11]}}</span>
+            </div>
         </div>
     </div>
 

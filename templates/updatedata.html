@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Update Champion Data</title>
-    <link rel="stylesheet" href="/static/updatedata.css">
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <title>Update Champion Data</title> <!-- Page title -->
+    <link rel="stylesheet" href="/static/updatedata.css"> <!-- CSS file -->
 </head>
 <body>
 
+    <!-- Navigation bar with search and update button -->
     <nav class="nav-bar">
         <div class="nav-buttons-container">
             <a href="/" class="home-button">Home</a>
@@ -15,16 +17,20 @@
                 <input type="text" id="searchbar" placeholder="Search Champions">
                 <div class="search-results">
                     {% for champion in searchbar %}
-                        <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">
-                            <img src="/static/Images/{{champion[2]}}/icon.png"/>
+                        <a href="/champions/{{champion[0]}}/{{champion[1]}}" 
+                           class="champion-link" 
+                           data-name="{{champion[2].lower()}}">
+                            <img src="/static/Images/{{champion[2]}}/icon.png" alt="{{champion[2]}} icon"/>
                             {{champion[2]}}
                         </a>
                     {% endfor %}
                     <p id="matches-text">No matches found</p>
                 </div>
             </div>
+        </div>
     </nav>
 
+    <!-- Champion and lane selection -->
     <label for="champion-select">Select Champion:</label>
     <select id="champion-select">
         <option>-- Choose a Champion --</option>
@@ -40,6 +46,7 @@
         </select>
     </div>
 
+    <!-- Form to update stats -->
     <form id="champion-form" class="champion-form">
         <input type="hidden" id="champ_id" name="champ_id" />
         <input type="hidden" id="lane_id" name="lane_id" />
@@ -56,8 +63,8 @@
         <button type="submit">Update Champion Stats</button>
     </form>
 
-    <p id="status"></p>
+    <p id="status"></p> <!-- Status message -->
 
-    <script src="/static/updatedata.js"></script>
+    <script src="/static/updatedata.js"></script> <!-- Link to JavaScript file -->
 </body>
 </html>

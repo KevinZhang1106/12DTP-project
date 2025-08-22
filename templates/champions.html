@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Champions</title>
-
-    <link rel="stylesheet" href="/static/champions.css">
-
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <title>Champions Stats</title> <!-- Page title -->
+    <link rel="stylesheet" href="/static/champions.css"> <!-- CSS file -->
 </head>
-
 <body>
 
+    <!-- Navigation bar with search and update button -->
     <nav class="nav-bar">
         <div class="nav-buttons-container">
             <a href="/" class="home-button">Home</a>
@@ -20,8 +17,9 @@
                 <input type="text" id="searchbar" placeholder="Search Champions">
                 <div class="search-results">
                     {% for champion in searchbar %}
-                        <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link" data-name="{{champion[2].lower()}}">
-                            <img src="/static/Images/{{champion[2]}}/icon.png"/>
+                        <a href="/champions/{{champion[0]}}/{{champion[1]}}" class="champion-link"
+                           data-name="{{champion[2].lower()}}">
+                            <img src="/static/Images/{{champion[2]}}/icon.png" alt="{{champion[2]}} icon"/>
                             {{champion[2]}}
                         </a>
                     {% endfor %}
@@ -31,69 +29,46 @@
             <button id="update-button">Update Data</button>
         </div>
     </nav>
-    <p id="update-status"></p>
 
+    <p id="update-status"></p> <!-- Update status message -->
+
+    <!-- Champion image and abilities -->
     <div class="image-container">
         <img src="/static/Images/{{championstats[6]}}/icon.png" alt="icon"/>
         <h1>{{championstats[6]}}</h1>
         <div class="ability-container">
+            {% for i, ability in enumerate(['passive','q','w','e','r']) %}
             <div class="tooltip">
-                <img src="/static/Images/{{championstats[6]}}/passive.png" alt="passive" />
-                <span class="tooltip-text">{{championstats[7]}}</span>
+                <img src="/static/Images/{{championstats[6]}}/{{ability}}.png" alt="{{ability}}" />
+                <span class="tooltip-text">{{championstats[7+i]}}</span>
             </div>
-            <div class="tooltip">
-                <img src="/static/Images/{{championstats[6]}}/q.png" alt="q" />
-                <span class="tooltip-text">{{championstats[8]}}</span>
-            </div>
-            <div class="tooltip">
-                <img src="/static/Images/{{championstats[6]}}/w.png" alt="w" />
-                <span class="tooltip-text">{{championstats[9]}}</span>
-            </div>
-            <div class="tooltip">
-                <img src="/static/Images/{{championstats[6]}}/e.png" alt="e" />
-                <span class="tooltip-text">{{championstats[10]}}</span>
-            </div>
-            <div class="tooltip">
-                <img src="/static/Images/{{championstats[6]}}/r.png" alt="r" />
-                <span class="tooltip-text">{{championstats[11]}}</span>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
+    <!-- Lane buttons -->
     <div class="lane-container">
         {% for lane in all_lanes %}
         <a href="/champions/{{champ_id}}/{{lane[0]}}" 
-            class="lane-button
-                    {% if lane[0] == current_lane %} current-lane {% endif %}
-                    {% if lane[0] not in available_lanes %} disabled-lane {% endif %}">
-    
-                    {{ lane[1] }}
+           class="lane-button {% if lane[0] == current_lane %} current-lane {% endif %}
+                              {% if lane[0] not in available_lanes %} disabled-lane {% endif %}">
+            {{ lane[1] }}
         </a>
         {% endfor %}
     </div>
 
+    <!-- Stats display -->
     <div class="stats-container">
-        <div>
-            <span>Winrate</span>
-            {{championstats[2]}}%
-        </div>
-        <div>
-            <span>Pickrate</span>
-            {{championstats[3]}}%
-        </div>
-        <div>
-            <span>Banrate</span>
-            {{championstats[4]}}%
-        </div>
+        <div><span>Winrate</span>{{championstats[2]}}%</div>
+        <div><span>Pickrate</span>{{championstats[3]}}%</div>
+        <div><span>Banrate</span>{{championstats[4]}}%</div>
     </div>
 
+    <script src="/static/champions.js"></script> <!-- Link to JavaScript file -->
 
-    <script src="/static/champions.js"></script>
-
+    <!-- Footer -->
     <footer class="page-footer">
         <p>Champion data is from https://u.gg</p>
     </footer>
-
 </body>
-
 </html>

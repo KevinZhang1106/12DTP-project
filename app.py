@@ -5,7 +5,7 @@ Flask application for League of Legends champion statistics website.
 # Imports
 import sqlite3                                                                                              
 
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for 
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, abort
 import bcrypt
 
 from config import ADMIN_PASSWORD_HASH
@@ -63,6 +63,9 @@ def championstatspage(champ_id, lane_id): # gets the champ_id and lane_id values
     )
     championstats = cur.fetchone() # gets the next row as a tuple
 
+    if championstats is None:
+        abort(404)
+
     # gets the lane_id where the pickrate is the highest for each champion
     cur.execute( 
         """
@@ -102,6 +105,9 @@ def championstatspage(champ_id, lane_id): # gets the champ_id and lane_id values
 def championrankingpage(lane_id):
     session.clear()
     sort_by = request.args.get("sort_by", "winrate") # gets the sort_by value in the url, if there is none then default to winrate
+
+    if sort_by not in ("winrate", "pickrate", "banrate"):
+        abort(404)
 
     conn = sqlite3.connect("champions.db")
     cur = conn.cursor()

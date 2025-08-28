@@ -61,6 +61,8 @@ document.getElementById("lane-select").addEventListener("change", () => {
     fetch(`/get-champion-stats/${champId}/${laneId}`)
         .then(res => res.json())
         .then(data => {
+            document.getElementById("champ_id").value = champId
+            document.getElementById("lane_id").value = laneId
             document.getElementById("winrate").value = data.winrate;
             document.getElementById("pickrate").value = data.pickrate;
             document.getElementById("banrate").value = data.banrate;
@@ -76,6 +78,21 @@ form.addEventListener("submit", (formdata) => {
     const winrate = document.getElementById("winrate").value;
     const pickrate = document.getElementById("pickrate").value;
     const banrate = document.getElementById("banrate").value;
+
+    // Reject invalid values
+    if (
+        winrate < 0 || winrate > 100 ||
+        pickrate < 0 || pickrate > 100 ||
+        banrate < 0 || banrate > 100
+    ) {
+        status.textContent = "Values must be between 0 and 100.";
+        status.style.color = "red";
+
+         setTimeout(() => {
+            status.textContent = ""; // Clear message after 2.5s
+        }, 2500);
+        return;
+    }
 
     // Send updated stats to server
     fetch("/update-champion", {

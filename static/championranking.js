@@ -10,17 +10,16 @@ searchbar.addEventListener("input", function () {
 
     links.forEach(link => {
         const champion = link.getAttribute("data-name");
-        if (searchText.length > 0 && champion.includes(searchText)) { // checks if there is input and if any champions names includes the input
-            link.style.display = "block"; // Show matching champion
+        if (searchText.length > 0 && champion.includes(searchText)) { 
+            link.style.display = "flex"; 
             hasMatches = true;
         } else {
-            link.style.display = "none"; // Hide non-matching champion
+            link.style.display = "none"; 
         }
     });
 
-    // Show "No matches found" if nothing matches
     if (searchText.length > 0 && hasMatches == false) {
-        matches.style.display = "block";
+        matches.style.display = "flex";
     } else {
         matches.style.display = "none";
     }
@@ -28,10 +27,10 @@ searchbar.addEventListener("input", function () {
 
 // Handle "Update Data" button click
 document.getElementById("update-button").addEventListener("click", () => {
-    const password = prompt("Enter the admin password:"); // Prompt for password
+    const password = prompt("Enter the admin password:"); 
 
     if (password === null) {
-        return; // Do nothing if user cancels
+        return; 
     }
 
     // Send entered password to app.py to check
@@ -45,14 +44,14 @@ document.getElementById("update-button").addEventListener("click", () => {
     .then(res => res.json())
     .then(data => {
         if (data.success == true) {
-            window.location.href = "/updatedata"; // Redirect if password correct
+            window.location.href = "/updatedata"; 
         } else {
             const status = document.getElementById("update-status");
-            status.textContent = "Incorrect password."; // Show error
+            status.textContent = "Incorrect password."; 
             status.style.color = "red";
 
             setTimeout(() => {
-                status.textContent = ""; // Clear error after 2.5s
+                status.textContent = "";
             }, 2500);
         }
     })

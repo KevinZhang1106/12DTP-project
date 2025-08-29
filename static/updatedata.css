@@ -90,8 +90,10 @@ a {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 100%;
-    padding: 8px;
+    padding: 8px; 
     display: none;
+    align-items: center;
+    gap: 10px;
 }
 
 .champion-link:hover {
@@ -107,7 +109,11 @@ a {
 
 #matches-text {
     color: gray;
+    background-color: #1e2a38;
+    padding: 8px;
     display: none;
+    align-items: center;
+    margin: 0;
 }
 
 

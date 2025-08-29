@@ -77,13 +77,11 @@ body {
 
 .ranking-table {
     width: 800px;
-    border-collapse: collapse;
-    background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
-    color: #000;
+    border: 10px solid #1e2a38;
+    border-spacing: 0;
 }
 
 .ranking-table th,
@@ -100,8 +98,20 @@ body {
     text-align: center;
 }
 
-.ranking-table tr:hover {
-    background-color: #e0e7ff;
+.ranking-table tbody .name-cell {
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+}
+
+.ranking-table tbody tr:nth-child(even) {
+    background-color: #1e2a38;
+    color: #ffffff;
+}
+
+.ranking-table tbody tr:nth-child(odd) {
+    background-color: #0f1923;
+    color: #ffffff;
 }
 
 .order-buttons {
@@ -177,9 +187,11 @@ a {
     text-align: left;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 680px;
+    width: 100%;
     padding: 8px; 
     display: none;
+    align-items: center;
+    gap: 10px;
 }
 
 .champion-link:hover {
@@ -194,7 +206,11 @@ a {
 
 #matches-text {
     color: gray;
+    background-color: #1e2a38;
+    padding: 8px;
     display: none;
+    align-items: center;
+    margin: 0;
 }
 
 .ranking-image {

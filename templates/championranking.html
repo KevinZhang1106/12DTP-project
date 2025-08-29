@@ -63,10 +63,21 @@
         <tbody>
             {% for champion in ranking %}
             <tr>
-                <td><img src="/static/Images/{{champion[1]}}/icon.png" alt="icon" class="ranking-image" />{{champion[1]}}</td>
-                <td>{{champion[2]}}%</td>
-                <td>{{champion[3]}}%</td>
-                <td>{{champion[4]}}%</td>
+                <td>
+                    <div class="name-cell">
+                        <img src="/static/Images/{{champion[1]}}/icon.png" alt="icon" class="ranking-image" />
+                        {{champion[1]}}
+                    </div>
+                </td>
+                <td>
+                    {{champion[2]}}%
+                </td>
+                <td>
+                    {{champion[3]}}%
+                </td>
+                <td>
+                    {{champion[4]}}%
+                </td>
             </tr>
             {% endfor %}
         </tbody>

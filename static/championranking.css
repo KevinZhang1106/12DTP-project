@@ -76,18 +76,21 @@ body {
 }
 
 .ranking-table {
-    width: 800px;
+    width: auto;
+    min-width: 800px;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 40px;
     border: 10px solid #1e2a38;
     border-spacing: 0;
+    table-layout: auto;
 }
 
 .ranking-table th,
 .ranking-table td {
     padding: 16px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .ranking-table th {
@@ -101,6 +104,7 @@ body {
 .ranking-table tbody .name-cell {
     display: flex;
     align-items: center; 
+    justify-content: center;
     gap: 8px;
 }
 
@@ -149,6 +153,10 @@ body {
 .name-column {
     width:  200px;
     height: 100%;
+}
+
+.lane-column {
+    width: 120px;
 }
 
 a {

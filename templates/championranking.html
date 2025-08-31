@@ -33,6 +33,10 @@
 
     <!-- Lane selection buttons -->
     <div class="lane-container">
+        <a href="/championranking/0?sort_by={{sort_by}}"
+            class="lane-button {% if current_lane == 0 %} current-lane {% endif %}">
+            All
+        </a>
         {% for lane in all_lanes %}
         <a href="/championranking/{{lane[0]}}?sort_by={{sort_by}}"
            class="lane-button {% if lane[0] == current_lane %} current-lane {% endif %}">
@@ -46,6 +50,9 @@
         <thead>
             <tr>
                 <th class="name-column">Name</th>
+                {% if current_lane == 0 %}
+                    <th class="lane-column">Lane</th>
+                {% endif %}
                 <th><a {% if sort_by !='winrate' %}href="/championranking/{{current_lane}}?sort_by=winrate"{% endif %}
                        class="{% if sort_by == 'winrate' %} current-order-button {% else %} order-buttons {% endif %}">
                         Winrate
@@ -63,12 +70,20 @@
         <tbody>
             {% for champion in ranking %}
             <tr>
+                <!-- Name -->
                 <td>
                     <div class="name-cell">
                         <img src="/static/Images/{{champion[1]}}/icon.png" alt="icon" class="ranking-image" />
                         {{champion[1]}}
                     </div>
                 </td>
+                <!-- Lane (only on "All") -->
+                {% if current_lane == 0 %}
+                    <td>
+                        {{champion[5]}}
+                    </td>
+                {% endif %}
+                <!-- Winrate / Pickrate / Banrate -->
                 <td>
                     {{champion[2]}}%
                 </td>

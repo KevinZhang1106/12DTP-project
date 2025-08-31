@@ -129,18 +129,36 @@ def championrankingpage(lane_id):
     if sort_by not in ("winrate", "pickrate", "banrate"):
         abort(404)
 
+    if lane_id < 0 or lane_id > 5:
+        abort(404)
+
     with get_db() as cur:
-        query = f"""
-            SELECT cs.champ_id, c.champ_name,
-            cs.winrate, cs.pickrate, cs.banrate
-            FROM ChampionStats cs
-            JOIN Champions c ON cs.champ_id = c.champ_id
-            WHERE cs.lane_id = ?
-            ORDER BY cs.{sort_by} DESC
-        """
-        # gets winrate, pickrate and banrate and sorts them by sort_by value
-        cur.execute(query, (lane_id,))
-        ranking = cur.fetchall()
+        if lane_id == 0:
+            query = f"""
+                SELECT cs.champ_id, c.champ_name,
+                cs.winrate, cs.pickrate, cs.banrate,
+                l.lane_name
+                FROM ChampionStats cs
+                JOIN Champions c ON cs.champ_id = c.champ_id
+                JOIN Lanes l ON cs.lane_id = l.lane_id
+                ORDER BY cs.{sort_by} DESC
+            """
+            # gets all stats and sorts them by sort_by value
+            cur.execute(query)
+            ranking = cur.fetchall()
+        else:
+
+            query = f"""
+                SELECT cs.champ_id, c.champ_name,
+                cs.winrate, cs.pickrate, cs.banrate
+                FROM ChampionStats cs
+                JOIN Champions c ON cs.champ_id = c.champ_id
+                WHERE cs.lane_id = ?
+                ORDER BY cs.{sort_by} DESC
+            """
+            # gets stats for specific lane and sorts them by sort_by value
+            cur.execute(query, (lane_id,))
+            ranking = cur.fetchall()
 
         cur.execute("SELECT lane_id, lane_name FROM Lanes")
         all_lanes = cur.fetchall()

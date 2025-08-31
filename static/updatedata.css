@@ -101,10 +101,8 @@ a {
 }
 
 .champion-link img {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
-    margin-right: 8px;
+    width: 32px;
+    height: 32px;
 }
 
 #matches-text {

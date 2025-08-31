@@ -207,9 +207,8 @@ a {
 }
 
 .champion-link img {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
+    width: 32px;
+    height: 32px;
 }
 
 #matches-text {
@@ -222,7 +221,6 @@ a {
 }
 
 .ranking-image {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
+    width: 40px;
+    height: 40px;
 }

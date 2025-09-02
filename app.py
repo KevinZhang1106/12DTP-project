@@ -37,26 +37,30 @@ def get_db():
         conn.close()
 
 
+# gets data for searchbar
+def get_searchbar(cur):
+    cur.execute(
+        """
+        SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate
+        FROM ChampionStats cs
+        JOIN (
+            SELECT champ_id, MAX(pickrate) AS max_pickrate
+            FROM ChampionStats
+            GROUP BY champ_id
+        ) max_stats ON cs.champ_id = max_stats.champ_id
+        JOIN Champions c ON cs.champ_id = c.champ_id
+        WHERE cs.pickrate = max_stats.max_pickrate
+        """
+    )
+    return cur.fetchall()
+
+
 # Home Page Route
 @app.route("/")
 def home():
     session.clear()
     with get_db() as cur:
-        # gets the lane_id where the pickrate is the highest for each champ_id
-        cur.execute(
-            """
-            SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate
-            FROM ChampionStats cs
-            JOIN (
-                SELECT champ_id, MAX(pickrate) AS max_pickrate
-                FROM ChampionStats
-                GROUP BY champ_id
-            ) max_stats ON cs.champ_id = max_stats.champ_id
-            JOIN Champions c ON cs.champ_id = c.champ_id
-            WHERE cs.pickrate = max_stats.max_pickrate
-            """
-        )
-        searchbar = cur.fetchall()  # gets all rows as a list of tuples
+        searchbar = get_searchbar(cur)
     return render_template("home.html", searchbar=searchbar)
 
 
@@ -65,6 +69,9 @@ def home():
 def championstatspage(champ_id, lane_id):
     session.clear()
     with get_db() as cur:
+
+        searchbar = get_searchbar(cur)
+
         # gets stats for the specific champion and lane
         cur.execute(
             """
@@ -82,22 +89,6 @@ def championstatspage(champ_id, lane_id):
 
         if championstats is None:
             abort(404)
-
-        # gets the lane_id where the pickrate is the highest for each champion
-        cur.execute(
-            """
-            SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate
-            FROM ChampionStats cs
-            JOIN (
-                SELECT champ_id, MAX(pickrate) AS max_pickrate
-                FROM ChampionStats
-                GROUP BY champ_id
-            ) max_stats ON cs.champ_id = max_stats.champ_id
-            JOIN Champions c ON cs.champ_id = c.champ_id
-            WHERE cs.pickrate = max_stats.max_pickrate
-            """
-        )
-        searchbar = cur.fetchall()
 
         # gets all lanes for a specific champion
         cur.execute(
@@ -163,20 +154,7 @@ def championrankingpage(lane_id):
         cur.execute("SELECT lane_id, lane_name FROM Lanes")
         all_lanes = cur.fetchall()
 
-        cur.execute(
-            """
-            SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate
-            FROM ChampionStats cs
-            JOIN (
-                SELECT champ_id, MAX(pickrate) AS max_pickrate
-                FROM ChampionStats
-                GROUP BY champ_id
-            ) max_stats ON cs.champ_id = max_stats.champ_id
-            JOIN Champions c ON cs.champ_id = c.champ_id
-            WHERE cs.pickrate = max_stats.max_pickrate
-            """
-        )
-        searchbar = cur.fetchall()
+        searchbar = get_searchbar(cur)
 
     return render_template(
         "championranking.html",
@@ -212,20 +190,7 @@ def updatedata_page():
         cur.execute("SELECT champ_id, champ_name FROM Champions")
         champions = cur.fetchall()
 
-        cur.execute(
-            """
-            SELECT cs.champ_id, cs.lane_id, c.champ_name, cs.pickrate
-            FROM ChampionStats cs
-            JOIN (
-                SELECT champ_id, MAX(pickrate) AS max_pickrate
-                FROM ChampionStats
-                GROUP BY champ_id
-            ) max_stats ON cs.champ_id = max_stats.champ_id
-            JOIN Champions c ON cs.champ_id = c.champ_id
-            WHERE cs.pickrate = max_stats.max_pickrate
-            """
-        )
-        searchbar = cur.fetchall()
+        searchbar = get_searchbar(cur)
 
     return render_template(
         "updatedata.html", champions=champions, searchbar=searchbar

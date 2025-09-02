@@ -1,3 +1,4 @@
+/* ===== Global Styles ===== */
 body { 
     font-family: Arial, sans-serif; 
     text-align: center; 
@@ -7,5 +8,6 @@ body {
 }
 
 a { 
-    color: #d6b55b; text-decoration: none; 
+    color: #d6b55b; 
+    text-decoration: none; 
 }

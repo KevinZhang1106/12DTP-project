@@ -1,3 +1,4 @@
+/* ===== Global Styles ===== */
 body {
     height: 100%;                 
     min-height: 100vh;            
@@ -10,7 +11,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-
 h1 {
     margin-bottom: 20px;
 }
@@ -19,6 +19,7 @@ a {
     text-decoration: none;
 }
 
+/* ===== Navigation Bar ===== */
 .nav-bar {
     display: flex;
     width: 100%;
@@ -60,6 +61,7 @@ a {
     transform: scale(1.05);
 }
 
+/* ===== Search Bar & Results ===== */
 .search-wrapper {
     position: relative;
     width: 700px;
@@ -120,6 +122,7 @@ a {
     margin: 0;
 }
 
+/* ===== Champion Image Container ===== */
 .image-container {
     display: flex;
     flex-direction: column;
@@ -148,6 +151,7 @@ a {
     color: #d6b55b;
 }
 
+/* ===== Abilities Section ===== */
 .ability-container {
     display: flex;
     gap: 12px;
@@ -170,6 +174,7 @@ a {
     background-color: #d6b55b;
 }
 
+/* ===== Tooltip Styling ===== */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -203,6 +208,7 @@ a {
     opacity: 1;
 }
 
+/* ===== Lane Buttons Section ===== */
 .lane-container {
     margin-top: 30px;
     display: flex;
@@ -235,6 +241,7 @@ a {
     pointer-events: none;
 }
 
+/* ===== Stats Section ===== */
 .stats-container {
     display: flex;
     justify-content: space-around;
@@ -247,22 +254,18 @@ a {
     margin-top: 20px;
     width: 80%;
     max-width: 800px;
-    font-size: 1.1rem;
+    font-size: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
-}
-
-.stats-container div {
-    flex: 1;
 }
 
 .stats-container div span {
     display: block;
     font-weight: bold;
-    font-size: 1.2rem;
     margin-bottom: 5px;
 }
 
+/* ===== Footer ===== */
 .page-footer {
     width: 100%;
     text-align: center;

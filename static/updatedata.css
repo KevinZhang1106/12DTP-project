@@ -37,7 +37,6 @@ a {
     gap: 25px;
 }
 
-.home-button,
 .ranking-button {
     background-color: #2d3a4d;
     color: #fff;
@@ -48,9 +47,22 @@ a {
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
 }
 
-.home-button:hover,
+#update-button {
+    background-color: #d6b55b;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    cursor: default;
+}
+
 .ranking-button:hover {
     background-color: #d6b55b;
     transform: scale(1.05);

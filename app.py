@@ -3,6 +3,7 @@ Flask application for League of Legends champion statistics website.
 """
 
 import sqlite3
+from contextlib import contextmanager
 
 from flask import (
     Flask,
@@ -15,8 +16,6 @@ from flask import (
     abort,
 )
 import bcrypt
-
-from contextlib import contextmanager
 
 from config import ADMIN_PASSWORD_HASH
 
@@ -55,13 +54,9 @@ def get_searchbar(cur):
     return cur.fetchall()
 
 
-# Home Page Route
 @app.route("/")
 def home():
-    session.clear()
-    with get_db() as cur:
-        searchbar = get_searchbar(cur)
-    return render_template("home.html", searchbar=searchbar)
+    return redirect(url_for("championrankingpage", lane_id=0))
 
 
 # Champion stats page route

@@ -8,10 +8,10 @@
 </head>
 <body>
 
-    <!-- Navigation bar with search and update button -->
+    <!-- Navigation bar -->
     <nav class="nav-bar">
         <div class="nav-buttons-container">
-            <a href="/" class="home-button">Home</a>
+            <a href="/championranking/0" class="ranking-button">Ranking</a>
             <div class="search-wrapper">
                 <input type="text" id="searchbar" placeholder="Search Champions">
                 <div class="search-results">
@@ -30,6 +30,8 @@
     </nav>
 
     <p id="update-status"></p> <!-- Update status message -->
+
+    <h1>League Of Legends statistics website</h1>
 
     <!-- Lane selection buttons -->
     <div class="lane-container">
@@ -97,6 +99,11 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <p>Champion data is from https://u.gg</p>
+    </footer>
 
     <script src="/static/championranking.js"></script> <!-- Link to JavaScript file -->
 </body>

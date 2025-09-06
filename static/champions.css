@@ -39,7 +39,6 @@ a {
     gap: 25px;
 }
 
-.home-button,
 .ranking-button,
 #update-button {
     background-color: #2d3a4d;
@@ -54,7 +53,6 @@ a {
     cursor: pointer;
 }
 
-.home-button:hover,
 .ranking-button:hover,
 #update-button:hover {
     background-color: #d6b55b;

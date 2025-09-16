@@ -63,37 +63,47 @@ def home():
 @app.route("/champions/<int:champ_id>/<int:lane_id>")
 def championstatspage(champ_id, lane_id):
     session.clear()
-    with get_db() as cur:
+    try:
+        with get_db() as cur:
+            searchbar = get_searchbar(cur)
 
-        searchbar = get_searchbar(cur)
+            # gets stats for the specific champion and lane
+            cur.execute(
+                """
+                SELECT cs.champ_id, cs.lane_id, cs.winrate, cs.pickrate,
+                    cs.banrate, l.lane_name, c.champ_name,
+                    c.passive_ability, c.q_ability, c.w_ability,
+                    c.e_ability, c.r_ability
+                FROM ChampionStats cs
+                JOIN Champions c ON cs.champ_id = c.champ_id
+                JOIN Lanes l ON cs.lane_id = l.lane_id
+                WHERE cs.champ_id = ? AND cs.lane_id = ?
+                """,
+                (champ_id, lane_id),
+            )
+            championstats = cur.fetchone()  # gets the next row as a tuple
 
-        # gets stats for the specific champion and lane
-        cur.execute(
-            """
-            SELECT cs.champ_id, cs.lane_id, cs.winrate, cs.pickrate,
-                   cs.banrate, l.lane_name, c.champ_name, c.passive_ability,
-                   c.q_ability, c.w_ability, c.e_ability, c.r_ability
-            FROM ChampionStats cs
-            JOIN Champions c ON cs.champ_id = c.champ_id
-            JOIN Lanes l ON cs.lane_id = l.lane_id
-            WHERE cs.champ_id = ? AND cs.lane_id = ?
-            """,
-            (champ_id, lane_id),
-        )
-        championstats = cur.fetchone()  # gets the next row as a tuple
+            if championstats is None:
+                abort(404)
 
-        if championstats is None:
-            abort(404)
+            # gets all lanes for a specific champion
+            cur.execute(
+                "SELECT cs.lane_id "
+                "FROM ChampionStats cs "
+                "WHERE cs.champ_id = ?",
+                (champ_id,),
+            )
+            available_lanes = [lane[0] for lane in cur.fetchall()]
 
-        # gets all lanes for a specific champion
-        cur.execute(
-            "SELECT cs.lane_id FROM ChampionStats cs WHERE cs.champ_id = ?",
-            (champ_id,),
-        )
-        available_lanes = [lane[0] for lane in cur.fetchall()]
+            # gets all lanes
+            cur.execute(
+                "SELECT lane_id, lane_name "
+                "FROM Lanes"
+            )
+            all_lanes = cur.fetchall()
 
-        cur.execute("SELECT lane_id, lane_name FROM Lanes")  # gets all lanes
-        all_lanes = cur.fetchall()
+    except OverflowError:
+        abort(404)
 
     return render_template(
         "champions.html",
@@ -133,7 +143,6 @@ def championrankingpage(lane_id):
             cur.execute(query)
             ranking = cur.fetchall()
         else:
-
             query = f"""
                 SELECT cs.champ_id, c.champ_name,
                 cs.winrate, cs.pickrate, cs.banrate
@@ -188,7 +197,9 @@ def updatedata_page():
         searchbar = get_searchbar(cur)
 
     return render_template(
-        "updatedata.html", champions=champions, searchbar=searchbar
+        "updatedata.html",
+        champions=champions,
+        searchbar=searchbar,
     )
 
 
@@ -218,8 +229,11 @@ def get_available_lanes(champ_id):
 def get_champion_stats(champ_id, lane_id):
     with get_db() as cur:
         cur.execute(
-            "SELECT winrate, pickrate, banrate FROM ChampionStats "
-            "WHERE champ_id = ? AND lane_id = ?",
+            """
+            SELECT winrate, pickrate, banrate
+            FROM ChampionStats
+            WHERE champ_id = ? AND lane_id = ?
+            """,
             (champ_id, lane_id),
         )
         stats = cur.fetchone()

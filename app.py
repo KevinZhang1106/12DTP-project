@@ -257,10 +257,19 @@ def update_champion():
         cur.execute(
             """
             UPDATE ChampionStats
-            SET winrate = ?, pickrate = ?, banrate = ?
+            SET winrate = ?, pickrate = ?
             WHERE champ_id = ? AND lane_id = ?
             """,
-            (winrate, pickrate, banrate, champ_id, lane_id),
+            (winrate, pickrate, champ_id, lane_id),
+        )
+
+        cur.execute(
+            """
+            UPDATE ChampionStats
+            SET banrate = ?
+            WHERE champ_id = ?
+            """,
+            (banrate, champ_id),
         )
 
     return jsonify({"success": True, "message": "Champion stats updated."})
